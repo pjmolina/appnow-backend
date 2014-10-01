@@ -1,0 +1,294 @@
+@import url(http://fonts.googleapis.com/css?family=Fira+Sans);
+
+body {
+	font-family:   "Fira Sans", "Helvetica", "Lucida Grande", sans-serif;
+	text-rendering: optimizeLegibility;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+#wrapper {
+	min-height: 100%;
+	position: relative;
+}
+#header {
+	padding: 0px;
+}
+#content {
+	margin: 0px;
+	padding-top: 0px;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-bottom: 50px;   /* Height of the footer element */
+}
+#footer {
+	position: absolute;
+	width: 100%;
+	height: 50px;
+	bottom: 0;
+	left: 0;
+	background-color: #222;
+}
+
+#caption {
+	border: none;
+	margin-bottom: 3px;
+}
+
+
+footer {
+	margin: 0em;
+	margin-top: 2em;
+	background-color: #222;
+	color: white;
+	padding: .8em .8em .8em .8em;
+}
+
+h1 {
+
+}
+
+h2 {
+
+}
+
+h3 {
+
+}
+.iconBig {
+	font-size: 1.5em;
+	vertical-align: bottom;
+}
+
+
+
+.containerRow {
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.content {
+	background-color: white;
+	margin-bottom: 3em;
+}
+
+.mainMenu {
+	font-size: 1.2em;
+	color: #fff;
+}
+
+.entryMenu {
+	font-size: 1.4em;
+}
+
+
+.error {
+	color: #c00;
+}
+.success {
+	color: #0c0;
+}
+
+.dropZone {
+	border: 2px dashed #666;
+	height: 3em;
+	padding: .7em 1em .7em 1em;
+	text-align: center;
+}
+.dropZone.selected {
+	border: 2px solid #555;
+	background-color: #ccf;
+}
+.content {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.commandBar {
+	margin-top: 3em;
+	margin-bottom: 2em;
+}
+
+
+.monospaced {
+	font-family: Consolas, "Courier New", Curier, monospaced;
+}
+
+tr > td.previewCell {
+	border: 1px solid #eef;
+	font-size: 0.85em;
+	padding-left: .4em;
+	padding-right: .2em;	
+	display: block;
+	max-width: 10em;
+	min-width: 2em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+
+table.importPreview {
+	min-width: 100%;
+	margin-top: 1.5em;
+}
+
+table.importPreview > thead > tr > th,
+table.importPreview > tbody > tr > td {
+	border: 1px solid #eee;
+	padding-left: .4em;
+	padding-right: .2em;	
+}
+
+table.importPreview > thead > tr > th {
+	background-color: #eee;
+	border: 1px solid #eee;
+	font-weight: normal;
+	font-size: .85em;
+	padding-left: .4em;
+	padding-right: .2em;		
+}
+
+table.importPreview > thead > tr > th.binded {
+	background-color: #eef;
+	border: 1px solid #eef;
+}
+
+table.importPreview > thead > tr > th.unbinded {
+	background-color: #eee;
+	border: 1px solid #eee;
+}
+
+.bindedProp{
+	margin-left: 0.8em;
+	background-color: #eef;
+	color: #00000;
+	font-weight: bold;
+	font-family: Consolas, "Courier New", Curier, monospaced;
+	padding: 0px 5px 0px 5px;
+	border-radius: 2px;
+}
+.missingProp{
+	margin-left: 0.8em;
+	background-color: #fcc;
+	color: #c00000;
+	font-weight: bold;
+	font-family: Consolas, "Courier New", Curier, monospaced;
+	padding: 0px 5px 0px 5px;
+	border-radius: 2px;
+}
+.ignoredProp{
+	margin-left: 0.8em;
+	background-color: #eee;
+	color: #222;
+	font-weight: bold;
+	font-family: Consolas, "Courier New", Curier, monospaced;
+	padding: 0px 5px 0px 5px;
+	border-radius: 2px;
+}
+
+.candidateHeader {
+	background-color: #eef;
+}
+.candidateData {
+	background-color: #fff;
+}
+.candidateSkip{
+	background-color: #fff;
+}
+.cursor-pointer {
+	cursor: pointer; cursor: hand;
+}
+.importTab {
+}
+.tab-content {
+	padding-top: 2em;
+}
+.importTab {
+}
+.tab-content {
+	padding-top: 2em;
+}
+.r-align {
+	text-align: right;
+}
+.l-align {
+	text-align: left;
+}
+.c-align {
+	text-align: center;
+}
+.x2 {
+	font-size: 2em;
+}
+.identifiedColHeader {
+	width: 9em;
+	display: inline-block;
+}
+div.commandBar > div > button.btn {
+	margin-right: .5em;
+}
+.loader {
+	width: 100%;
+	text-align: center;
+}
+
+
+#itemList {
+	font-size: .9em;
+}
+
+tr > td.data {
+	padding-left: .4em;
+	padding-right: .2em;	
+	display: block;
+	max-width: 10em;
+	min-width: 2em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.upperTableZone {
+	margin-bottom: 1em;
+}
+.searchZone {
+	margin-left: 3em;
+	display: inline;
+}
+#searchTextbox {
+	width: 15em;
+	padding-left: .5em;
+}
+.foundZone {
+	text-align: left;
+	display: inline;
+	margin-left: 1em;
+}
+.inline-ico {
+	position: relative;
+	left: -1px;	
+	height: 34px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+input.date-editor {
+	width: 7em;
+}
+
+.datetimeSelector > input {
+	position: relative;
+	top: 34px;
+}
+
+.datetimeSelector > table {
+	position: relative;
+	top: 0px;
+	margin-left: .5em;
+}
+.datetimeSelector > span > button {
+	position: relative;
+	top: 3px;
+	left: -1px;	
+}
+

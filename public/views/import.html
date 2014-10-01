@@ -1,0 +1,192 @@
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
+		<h1>Import data for {{className}} </h1>
+		<div data-ng-show="wizardStep == 0">
+			<div class="row content fileSelector">
+				<div class="col-md-8">
+				  Provide a CSV or XSLX file to import.
+				  <input type="file" fileread="importFile"  
+				   accept=".csv,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+				  />		
+				</div>
+			</div>
+			<p ng-show="error">Error: <strong>{{error}}</strong><p>
+			<div class="row commandBar">
+				<div class="col-md-8">
+					<button class="btn btn-warning" data-ng-click="cancel()">Cancel</button>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="" data-ng-show="wizardStep > 0">
+			<p>Import file: <strong>{{previewData.fileName}}</strong><p>
+		</div>
+		
+		<div class="text-center" data-ng-show="loadMessage">
+			<p>{{loadMessage}}</p>
+			<div class="loader"><img src="images/loader.gif" alt="Loading..." /></div>
+		</div>
+
+		<div data-ng-show="wizardStep == 1">
+			<div class="importTab">
+				<p data-ng-show="previewData.workSheets.length > 1">Choose sheet to import from:</p>
+				<tabset>
+					<tab data-ng-repeat="sheet in previewData.workSheets" heading="{{sheet.name}}" data-ng-click="sheetSelected(sheet)">
+						<p> Choose or confirm header row. </p>
+						<table class="importPreview">
+							<tbody>
+								<tr data-ng-repeat="row in sheet.rows  | limitTo:10"
+									ng-class="{candidateHeader: $index == sheet.candidateHeaderLine, 	
+											   candidateData: $index > sheet.candidateHeaderLine,
+											   candidateSkip: $index < sheet.candidateHeaderLine }"
+								   data-ng-click="selectNewHeader(sheet, $index)"
+								>
+									<td class="previewCell" data-ng-repeat="cell in row.cells track by $index">{{cell}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="text-center" data-ng-show="sheet.rows.length > 10">
+							...
+						</div>
+					</tab>
+				</tabset>
+			</div>
+		</div>
+		<div class="row commandBar" data-ng-show="wizardStep == 1">
+			<div class="col-md-8">
+				<button class="btn btn-primary" data-ng-click="gotoFileSelection()" ng-show="hasValidFile">&lt; Select other file</button>
+				<button class="btn btn-warning" data-ng-click="cancel()">Cancel</button>
+				<button class="btn btn-primary" data-ng-click="importPreview()" ng-show="hasValidFile">Confirm header &gt;</button>
+			</div>
+		</div>
+		
+		<div data-ng-show="wizardStep == 2">
+			<div data-ng-show="previewData.error">
+				{{previewData.error}}
+			</div>
+
+			<div data-ng-show="previewData.lines.length == 0">
+				<h3 class="error">
+				No suitable data to import. No records were found.
+				</h3>
+			</div>			
+			<div data-ng-show="previewData.lines.length > 0">
+				<h3 class=" error" data-ng-show="previewData.foundProperties.length==0">
+				<span class="glyphicon glyphicon-remove-circle error"></span>
+				No suitable data to import. There are no matching columns.
+				</h3>
+				<h3 class="" data-ng-show="previewData.foundProperties.length > 0 && previewData.lines == 1">
+				<span class="glyphicon glyphicon-ok-sign success"></span>
+				Found a single element to import.
+				</h3>
+				<h3 class="" data-ng-show="previewData.foundProperties.length > 1 && previewData.lines > 1">
+				<span class="glyphicon glyphicon-ok-sign success"></span>
+				Found {{previewData.lines.length}} elements to import.
+				</h3>
+				<ul>
+					<li data-ng-show="previewData.foundProperties.length>0">
+						<span class="identifiedColHeader">Matching columns:</span>  
+						<span data-ng-repeat="prop in previewData.foundProperties">
+							<span class="monospaced bindedProp">{{prop}}</span>&nbsp;
+						</span>
+					</li>
+					<li class="error" data-ng-show="previewData.foundProperties.length==0">
+						No matching columns found. 
+					</li>
+					<li class="error" data-ng-show="previewData.missingProperties.length>0">
+						<span class="identifiedColHeader">Missing columns:</span>  
+						<span data-ng-repeat="prop in previewData.missingProperties">
+							<span class="error monospaced missingProp">{{prop}}</span>&nbsp;
+						</span>
+					</li>
+					<li class="" data-ng-show="previewData.ignoredProperties.length>0">
+						<span class="identifiedColHeader">Ignored columns:</span>  
+						<span data-ng-repeat="prop in previewData.ignoredProperties">
+							<span class="error monospaced ignoredProp">{{prop}}</span>&nbsp;
+						</span>
+					</li>
+				</ul>
+			</div>
+
+			<div data-ng-show="previewData.headers">
+				<table class="importPreview">
+					<thead>
+						<th class="r-align">#</th>
+						<th data-ng-repeat="header in previewData.headers" ng-class="{binded: isBinded(header), unbinded: !isBinded(header) }" > {{header}}
+						</th>
+					</thead>
+					<tbody>
+						<tr class="" data-ng-repeat="row in previewData.lines | limitTo:10">
+							<td class="previewCell r-align">{{row.line}}</td>
+							<td class="previewCell" data-ng-repeat="cell in row.cells track by $index">{{cell}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="text-center" data-ng-show="previewData.lines.length > 10">
+					...
+				</div>
+				
+				<div class="row commandBar" data-ng-show="previewData.lines">
+					<div class="col-md-8">
+						<button class="btn btn-primary" data-ng-click="back()">&lt; Back</button>
+						<button class="btn btn-warning" data-ng-click="cancel()">Cancel</button>
+						<button class="btn btn-primary" data-ng-click="import()" ng-show="previewData.foundProperties.length>0">Import data</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="text-center" data-ng-show="wizardStep == 3">
+			<br/>
+			<p>Uploading data....</p>
+			<div class="loader"><img src="images/loader.gif" alt="Loading..." /></div>
+		</div>
+		
+		<div class="" data-ng-show="wizardStep == 4">
+			<h3>Import Summary</h3>
+			<div class="col-md-8" data-ng-show="importResult.errors.length == 0">
+				<p>
+				<span class="glyphicon glyphicon-ok-sign success x2"> </span>
+				Imported {{importResult.importedCount}} elements: {{importResult.insertCount}} inserted, {{importResult.updatedCount}} updated.
+				</p>
+				<p>{{importResult.errors.length}} errors found.</p>
+			</div>
+			<div class="col-md-8" data-ng-show="importResult.errors.length > 0">
+				<p>
+				Imported {{importResult.importedCount}} elements: {{importResult.insertCount}} inserted, {{importResult.updatedCount}} updated.
+				</p>	
+
+				<p class="error">
+				<span class="glyphicon glyphicon-remove-circle error x2"> </span>
+				{{importResult.errors.length}} errors found. &nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-default btn-sm" ng-click="isCollapsed = !isCollapsed">
+						<span data-ng-show="isCollapsed">Show errors</span>
+						<span data-ng-show="!isCollapsed">Hide errors</span>
+					</button>
+				</p>
+				<div collapse="isCollapsed">
+					<div data-ng-repeat="item in importResult.errors">
+						<p class="error">Error in row # {{item.line + 1}}: {{item.error.message}}.
+							<ul>
+								<li class="error" data-ng-repeat="it2 in item.error.errors">
+									{{it2.message}}
+								</li>
+							</ul>
+						</p>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<br/>
+			<div class="row commandBar">
+				<div class="col-md-8">
+					<button class="btn btn-primary" data-ng-click="cancel()">Done</button>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="col-md-1"></div>
+</div>
